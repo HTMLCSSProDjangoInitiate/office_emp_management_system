@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management System</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #009879;
+            color: #ffffff;
+        }
+
+        table thead th {
+            padding: 12px;
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table tbody td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        button {
+            padding: 10px 15px;
+            color: #ffffff;
+            background-color: #009879;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007f65;
+        }
+
+        a button {
+            text-decoration: none;
+        }
+
+        .add-button {
+            margin-top: 20px;
+        }
+
+        form button {
+            background-color: #e74c3c;
+        }
+
+        form button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <h1>Office Employee Management System</h1><hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Department</th>
+                <th>Salary</th>
+                
+                <th>Bonus</th>
+                <th>Role</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+                
+            </tr>
+            <tbody>
+                {% for Employee in emp %}
+                <tr>
+                    <td>{{Employee.id}}</td>
+                    <td>{{Employee.first_name}}</td>
+                    <td>{{Employee.last_name}}</td>
+                    <td>{{Employee.dept}}</td>
+                    <td>{{Employee.salary}}</td>
+                    <td>{{Employee.bonus}}</td>
+                    <td>{{Employee.role}}</td>
+                    <td>{{Employee.phone}}</td>
+                    <td><a href="{% url 'update' Employee.id %}"><button type="up">Update</button></a></td>
+                    <td><form method="POST" action="{% url 'delete' Employee.id %}">
+                    {% csrf_token %}
+                <button type="del">Delete</button>
+            </form></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+    <a href="{% url 'add' %}"><button type="add">Add</button></a>
+</body>
+</html>
