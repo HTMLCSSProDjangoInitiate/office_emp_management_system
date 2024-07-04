@@ -5,23 +5,29 @@ from home.models import Employee
 
 from django.contrib import messages
 
+from django.db.models import Q
+
 def home(request):
     emp = Employee.objects.all()
-    return render(request, 'home.html', {'emp':emp})
-
+    if request.method == 'GET':
+        st = request.GET.get('searchbox')
+        if st is not None:
+            emp = Employee.objects.filter(
+                Q(first_name__icontains=st) | Q(last_name__icontains=st)
+            )
+    return render(request, 'home.html', {'emp': emp})
 def add(request):
     form = EmployeeForm()
     if request.method == 'POST':
-        form = EmployeeForm(request.FILES, request.POST)
+        form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Successfully added")
             return redirect('home')
         else:
+            print(form.errors) 
             messages.error(request, "Sorry, there was an error.")
-    else:
-        form = EmployeeForm()
-
+    
     return render(request, 'add.html', {'form': form})
 
 def delete(request, id):

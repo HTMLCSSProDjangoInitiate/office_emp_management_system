@@ -54,30 +54,11 @@
             background-color: #007f65;
         }
     </style>
-    <form method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="first_name">First Name</label>
-        <input type="text" name="first_name" value=""><br><br>
-        
-        <label for="last_name">Last Name</label>
-        <input type="text" name="last_name" value=""><br><br>
-        
-        <label for="dept">Department</label>
-        <input type="text" name="dept" value=""><br><br>
-        
-        <label for="salary">Salary</label>
-        <input type="text" name="salary" value=""><br><br>
-        
-        <label for="bonus">Bonus</label>
-        <input type="text" name="bonus" value=""><br><br>
-        
-        <label for="role">Role</label>
-        <input type="text" name="role" value=""><br><br>
-        
-        <label for="phone">Phone Number</label>
-        <input type="text" name="phone" value=""><br><br>
-        
-        <button type="submit">Save</button>
-    </form>
+<form method="POST" action="{% url 'add' %}"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">Add</button>
+</form>
 </body>
 </html>

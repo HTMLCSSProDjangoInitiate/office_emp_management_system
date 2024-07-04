@@ -80,6 +80,13 @@
         }
     </style>
     <h1>Office Employee Management System</h1><hr>
+    <div class="searchbox" action="">
+        <form method="GET" >
+            {% csrf_token %}
+            <input type="text" name="searchbox" placeholder="search here....">
+            <button type="search" class="btn btn-success">Search</button>
+        </form>
+    </div>
     <table>
         <thead>
             <tr>
