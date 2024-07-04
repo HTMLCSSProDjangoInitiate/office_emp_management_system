@@ -5,7 +5,6 @@ from home.models import Employee
 
 from django.contrib import messages
 
-from django.db.models import Q
 
 def home(request):
     emp = Employee.objects.all()
@@ -13,8 +12,8 @@ def home(request):
         st = request.GET.get('searchbox')
         if st is not None:
             emp = Employee.objects.filter(
-                Q(first_name__icontains=st) | Q(last_name__icontains=st)
-            )
+                first_name__icontains=st) 
+            
     return render(request, 'home.html', {'emp': emp})
 def add(request):
     form = EmployeeForm()
